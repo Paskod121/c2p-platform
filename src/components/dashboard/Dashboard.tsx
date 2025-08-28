@@ -4,55 +4,61 @@ import { DashboardHeader } from './DashboardHeader'
 import { StatsCards } from './StatsCards'
 import { CourseProgress } from './CourseProgress'
 import { BadgesSection } from './BadgesSection'
-import { ThemeToggle } from '@/components/ui/theme-toggle'
 
 export function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
       <DashboardHeader />
       
-      {/* Démonstration du Mode Sombre */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 mb-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                Démonstration du Mode Sombre
-              </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
-                Testez le basculement entre les thèmes clair et sombre
-              </p>
-            </div>
-            <ThemeToggle />
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+        {/* Message de Bienvenue */}
+        <div className="text-center">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-4">
+            Bienvenue sur votre Dashboard !
+          </h1>
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            Continuez votre voyage d&apos;apprentissage et découvrez de nouvelles opportunités de développement
+          </p>
+        </div>
+
+        {/* Cartes de Statistiques */}
+        <div>
+          <div className="mb-6">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Vue d&apos;Ensemble</h2>
+            <p className="text-gray-600 dark:text-gray-300">Vos performances et réalisations en un coup d&apos;œil</p>
           </div>
-          
-          <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg border border-gray-200 dark:border-gray-600">
-              <h4 className="font-medium text-gray-900 dark:text-white mb-2">Mode Clair</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
-                Fond clair avec texte sombre pour une lecture optimale en journée
-              </p>
-            </div>
-            <div className="bg-gray-800 dark:bg-gray-600 p-4 rounded-lg border border-gray-700 dark:border-gray-500">
-              <h4 className="font-medium text-white dark:text-gray-900 mb-2">Mode Sombre</h4>
-              <p className="text-sm text-gray-300 dark:text-gray-100">
-                Fond sombre avec texte clair pour une expérience confortable la nuit
-              </p>
-            </div>
-            <div className="bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/20 dark:to-blue-900/20 p-4 rounded-lg border border-purple-200 dark:border-purple-700">
-              <h4 className="font-medium text-purple-900 dark:text-purple-100 mb-2">Accents</h4>
-              <p className="text-sm text-purple-700 dark:text-purple-300">
-                Couleurs d'accent qui s'adaptent automatiquement au thème
-              </p>
+          <StatsCards />
+        </div>
+
+        {/* Progression des Cours */}
+        <div>
+          <CourseProgress />
+        </div>
+
+        {/* Section des Badges */}
+        <div>
+          <BadgesSection />
+        </div>
+
+        {/* Call to Action Final */}
+        <div className="text-center py-12">
+          <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl p-8 text-white">
+            <h3 className="text-2xl font-bold mb-4">
+              Prêt pour le Niveau Supérieur ?
+            </h3>
+            <p className="text-purple-100 mb-6 max-w-2xl mx-auto">
+              Explorez nos cours avancés, participez à la communauté et devenez un expert reconnu dans votre domaine
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button className="bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                Découvrir les Cours
+              </button>
+              <button className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-purple-600 transition-colors">
+                Rejoindre la Communauté
+              </button>
             </div>
           </div>
         </div>
-      </div>
-
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
-        <StatsCards />
-        <CourseProgress />
-        <BadgesSection />
       </main>
     </div>
   )

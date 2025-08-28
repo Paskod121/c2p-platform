@@ -3,54 +3,52 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Loader2 } from 'lucide-react'
+import { useAuth } from '@/hooks/useAuth'
 
 interface ProtectedRouteProps {
   children: React.ReactNode
 }
 
 export function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
+  const { isAuthenticated, user } = useAuth()
 
   useEffect(() => {
-    // Simulation de vérification d'authentification
+    // Vérification initiale
     const checkAuth = async () => {
       try {
-        // Ici, vous vérifieriez le token JWT ou la session
-        // Pour l'instant, on simule une vérification
         const token = localStorage.getItem('auth-token')
         
         if (!token) {
-          // Pas de token, rediriger vers la connexion
           router.push('/auth/login')
           return
         }
 
-        // Vérifier la validité du token (appel API)
-        // const response = await fetch('/api/auth/verify', {
-        //   headers: { Authorization: `Bearer ${token}` }
-        // })
-        
-        // if (!response.ok) {
-        //   localStorage.removeItem('auth-token')
-        //   router.push('/auth/login')
-        //   return
-        // }
+        // Si on a un token mais que l'état n'est pas encore synchronisé
+        if (!isAuthenticated && token) {
+          // Attendre un peu que le contexte se synchronise
+          await new Promise(resolve => setTimeout(resolve, 100))
+        }
 
-        // Token valide
-        setIsAuthenticated(true)
+        setIsLoading(false)
       } catch (error) {
         console.error('Erreur de vérification d\'authentification:', error)
         localStorage.removeItem('auth-token')
         router.push('/auth/login')
-      } finally {
-        setIsLoading(false)
       }
     }
 
     checkAuth()
-  }, [router])
+  }, [router, isAuthenticated])
+
+  // Redirection immédiate si pas authentifié
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      console.log('Redirection immédiate vers /auth/login')
+      router.push('/auth/login')
+    }
+  }, [isAuthenticated, isLoading, router])
 
   // Afficher un loader pendant la vérification
   if (isLoading) {
@@ -64,9 +62,16 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
     )
   }
 
-  // Si pas authentifié, ne rien afficher (redirection en cours)
+  // Si pas authentifié, afficher un loader de redirection
   if (!isAuthenticated) {
-    return null
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="h-12 w-12 text-purple-600 dark:text-purple-400 animate-spin mx-auto mb-4" />
+          <p className="text-gray-600 dark:text-gray-300">Redirection vers la connexion...</p>
+        </div>
+      </div>
+    )
   }
 
   // Si authentifié, afficher le contenu protégé

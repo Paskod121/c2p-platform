@@ -1,309 +1,258 @@
-# C2P Platform - Code Premier Pas
+# 🚀 C2P Platform - Plateforme d'Apprentissage Développeur
 
-> **La plateforme communautaire qui forme et inspire les développeurs de demain en Afrique francophone**
+[![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![Prisma](https://img.shields.io/badge/Prisma-6.15-2D3748?style=for-the-badge&logo=prisma)](https://www.prisma.io/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.3-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
 
-[![Next.js](https://img.shields.io/badge/Next.js-14+-black?style=flat&logo=next.js)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5+-blue?style=flat&logo=typescript)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3+-38B2AC?style=flat&logo=tailwind-css)](https://tailwindcss.com/)
-[![Prisma](https://img.shields.io/badge/Prisma-5+-2D3748?style=flat&logo=prisma)](https://www.prisma.io/)
+> **C2P Platform** est une plateforme d'apprentissage en ligne moderne et interactive conçue pour les développeurs de tous niveaux. Elle combine formation structurée, communauté active et gamification pour créer une expérience d'apprentissage engageante.
 
----
+## ✨ **Fonctionnalités Principales**
 
-## À Propos du Projet
+### 🎓 **Formations & Cours**
+- **Cours structurés** par technologie (Python, JavaScript, React, etc.)
+- **Leçons progressives** avec contenu multimédia
+- **Suivi de progression** détaillé
+- **Niveaux d'apprentissage** : Débutant → Expert
 
-**Nom du projet** : `c2p-platform`  
-**Version** : 1.0.0  
-**Description** : Plateforme éducative communautaire pour développeurs débutants  
-**Public** : Développeurs africains francophones  
-**Technologies** : Next.js, TypeScript, Prisma, PostgreSQL, Tailwind CSS  
+### 👥 **Communauté & Forum**
+- **Forum par catégorie** technologique
+- **Système de votes** et réponses threadées
+- **Modération** et gestion des contenus
+- **Partage de connaissances** entre pairs
 
-### Mission
-Connecter, former et accompagner plus de 2500+ développeurs à travers l'Afrique francophone via une plateforme moderne intégrant formations, forum, coding en direct & replay et gestion de projets.
+### 🏆 **Gamification & Badges**
+- **Système de badges** avec rareté (Commun → Légendaire)
+- **Points d'expérience** et classements
+- **Défis** et objectifs d'apprentissage
+- **Portfolio de projets** public
 
----
+### 📱 **Interface Moderne**
+- **Design responsive** optimisé mobile/desktop
+- **Thème sombre/clair** automatique
+- **Navigation intuitive** et accessible
+- **Performance optimisée** avec Next.js 14
 
-## 🏗️ Structure du Projet
+## 🛠 **Stack Technique**
 
-```
-c2p-platform/
-├── 📁 src/
-│   ├── 📁 app/                    # App Router Next.js 14+
-│   │   ├── 📁 (auth)/            # Routes d'authentification
-│   │   ├── 📁 (dashboard)/       # Dashboard utilisateur
-│   │   ├── 📁 (admin)/           # Interface admin
-│   │   ├── 📁 api/               # API Routes
-│   │   ├── 📁 formations/        # Pages formations
-│   │   ├── 📁 forum/             # Forum communautaire
-│   │   ├── 📁 replay/            # Bibliothèque vidéos
-│   │   ├── 📁 projets/           # Projets étudiants
-│   │   ├── layout.tsx            # Layout principal
-│   │   └── page.tsx              # Page d'accueil
-│   ├── 📁 components/            # Composants React réutilisables
-│   │   ├── 📁 ui/                # Design System (shadcn/ui)
-│   │   ├── 📁 forms/             # Formulaires
-│   │   ├── 📁 layout/            # Composants layout
-│   │   └── 📁 features/          # Composants métier
-│   ├── 📁 lib/                   # Utilitaires et configurations
-│   │   ├── auth.ts               # Configuration NextAuth.js
-│   │   ├── db.ts                 # Client Prisma
-│   │   ├── utils.ts              # Fonctions utilitaires
-│   │   └── validations.ts        # Schémas Zod
-│   ├── 📁 styles/                # Styles globaux
-│   │   └── globals.css           # CSS Tailwind + custom
-│   └── 📁 types/                 # Types TypeScript
-├── 📁 prisma/                    # Configuration base de données
-│   ├── schema.prisma             # Modèles de données
-│   ├── seed.ts                   # Données initiales
-│   └── 📁 migrations/            # Migrations DB
-├── 📁 public/                    # Assets statiques
-│   ├── 📁 images/                # Images et logos
-│   ├── 📁 videos/                # Vidéos de démonstration
-│   └── favicon.ico               # Favicon
-├── 📁 docs/                      # Documentation projet
-├── .env.local                    # Variables d'environnement
-├── package.json                  # Dépendances Node.js
-├── tailwind.config.js            # Configuration Tailwind
-├── next.config.js                # Configuration Next.js
-└── README.md                     # Ce fichier
-```
+| Composant | Technologie | Version |
+|-----------|-------------|---------|
+| **Frontend** | Next.js | 14.x |
+| **Language** | TypeScript | 5.x |
+| **Styling** | Tailwind CSS | 3.3.x |
+| **Base de données** | PostgreSQL | via Neon |
+| **ORM** | Prisma | 6.15.x |
+| **Authentification** | NextAuth.js | 4.x |
+| **UI Components** | Radix UI + shadcn/ui | Latest |
+| **Gestion d'état** | TanStack Query | 5.x |
+| **Validation** | React Hook Form + Zod | Latest |
 
----
+## 🚀 **Installation & Démarrage**
 
-## Installation & Démarrage Rapide
+### **Prérequis**
+- Node.js 18+ 
+- npm, yarn, pnpm ou bun
+- Base de données PostgreSQL
+- Compte GitHub (pour l'authentification)
 
-### Prérequis
-- **Node.js** 18+ ([Télécharger](https://nodejs.org/))
-- **npm** ou **yarn** 
-- **PostgreSQL** 15+ ([Installation locale](https://www.postgresql.org/) ou [Neon.db](https://neon.tech/))
-- **Git** ([Télécharger](https://git-scm.com/))
-
-### Installation
-
-1. **Cloner le repository**
+### **1. Cloner le projet**
 ```bash
-git clone https://github.com/Paskod121/c2p-platform.git
+git clone <votre-repo>
 cd c2p-platform
 ```
 
-2. **Installer les dépendances**
+### **2. Installer les dépendances**
 ```bash
 npm install
 # ou
 yarn install
+# ou
+pnpm install
 ```
 
-3. **Configuration environnement**
-```bash
-cp .env.example .env.local
-```
+### **3. Configuration de l'environnement**
+Créez un fichier `.env.local` à la racine du projet :
 
-Modifier `.env.local` avec vos configurations :
 ```env
 # Base de données
-DATABASE_URL="postgresql://username:password@localhost:5432/c2p_db"
+DATABASE_URL="postgresql://user:password@localhost:5432/c2p_platform"
 
 # NextAuth.js
+NEXTAUTH_SECRET="votre-secret-ici"
 NEXTAUTH_URL="http://localhost:3000"
-NEXTAUTH_SECRET="your-secret-key-here"
 
-# OAuth Providers
-GOOGLE_CLIENT_ID="your-google-client-id"
-GOOGLE_CLIENT_SECRET="your-google-client-secret"
-GITHUB_CLIENT_ID="your-github-client-id"
-GITHUB_CLIENT_SECRET="your-github-client-secret"
+# Fournisseurs d'authentification (optionnel)
+GITHUB_ID="votre-github-client-id"
+GITHUB_SECRET="votre-github-client-secret"
 
-# Upload Files
-CLOUDINARY_URL="cloudinary://api_key:api_secret@cloud_name"
-
-# Email (optionnel)
-EMAIL_SERVER_HOST="smtp.gmail.com"
-EMAIL_SERVER_PORT=587
-EMAIL_SERVER_USER="your-email@gmail.com"
-EMAIL_SERVER_PASSWORD="your-password"
-EMAIL_FROM="noreply@c2p-platform.com"
+# Variables d'environnement supplémentaires
+NODE_ENV="development"
 ```
 
-4. **Configuration base de données**
+### **4. Configuration de la base de données**
 ```bash
 # Générer le client Prisma
 npx prisma generate
 
-# Exécuter les migrations
+# Appliquer les migrations
 npx prisma db push
 
-# Populer avec des données de test
-npx prisma db seed
+# (Optionnel) Ouvrir Prisma Studio
+npx prisma studio
 ```
 
-5. **Lancer le serveur de développement**
+### **5. Lancer le serveur de développement**
 ```bash
 npm run dev
 # ou
 yarn dev
+# ou
+pnpm dev
 ```
 
- **Votre plateforme C2P est accessible sur [http://localhost:3000](http://localhost:3000)**
+Ouvrez [http://localhost:3000](http://localhost:3000) dans votre navigateur.
 
----
+## 📁 **Structure du Projet**
 
-## Scripts Disponibles
+```
+c2p-platform/
+├── 📁 src/
+│   ├── 📁 app/                 # App Router Next.js 14
+│   │   ├── 📁 api/            # Routes API
+│   │   ├── 📁 auth/           # Pages d'authentification
+│   │   ├── 📁 courses/        # Pages des cours
+│   │   ├── 📁 forum/          # Pages du forum
+│   │   ├── 📁 profile/        # Profil utilisateur
+│   │   └── 📁 dashboard/      # Tableau de bord
+│   ├── 📁 components/         # Composants réutilisables
+│   ├── 📁 lib/                # Utilitaires et configurations
+│   └── 📁 types/              # Types TypeScript
+├── 📁 prisma/
+│   └── schema.prisma          # Schéma de base de données
+├── 📁 public/                 # Assets statiques
+├── 📁 docs/                   # Documentation
+└── 📁 .github/                # GitHub Actions (si applicable)
+```
+
+## 🗄️ **Modèles de Données**
+
+### **Utilisateurs & Authentification**
+- `User` : Profils utilisateurs avec rôles
+- `Account` : Comptes d'authentification
+- `Session` : Sessions utilisateur
+
+### **Formations**
+- `Course` : Cours avec métadonnées
+- `Lesson` : Leçons individuelles
+- `CourseProgress` : Suivi de progression
+
+### **Communauté**
+- `ForumCategory` : Catégories du forum
+- `ForumTopic` : Sujets de discussion
+- `ForumReply` : Réponses et commentaires
+
+### **Gamification**
+- `Badge` : Badges et récompenses
+- `UserBadge` : Attribution des badges
+- `Project` : Portfolio de projets
+
+## 🔧 **Scripts Disponibles**
 
 ```bash
 # Développement
-npm run dev          # Serveur de développement
-npm run build        # Build production
-npm run start        # Serveur production
-npm run lint         # ESLint check
-npm run type-check   # TypeScript check
+npm run dev          # Serveur de développement avec Turbopack
+npm run build        # Build de production
+npm run start        # Serveur de production
+npm run lint         # Vérification ESLint
 
 # Base de données
-npm run db:migrate   # Nouvelles migrations
-npm run db:seed      # Populer la DB
-npm run db:studio    # Interface Prisma Studio
-npm run db:reset     # Reset complet DB
+npx prisma generate  # Générer le client Prisma
+npx prisma db push   # Appliquer le schéma
+npx prisma studio    # Interface d'administration
+npx prisma migrate dev # Créer et appliquer des migrations
 
-# Tests (à venir)
+# Tests (à implémenter)
 npm run test         # Tests unitaires
 npm run test:e2e     # Tests end-to-end
 ```
 
----
+## 🌐 **Déploiement**
 
-## Stack Technique
-
-### Frontend
-- **[Next.js 14+](https://nextjs.org/)** - Framework React avec App Router
-- **[TypeScript](https://www.typescriptlang.org/)** - Typage statique
-- **[Tailwind CSS](https://tailwindcss.com/)** - Framework CSS utility-first
-- **[Shadcn/ui](https://ui.shadcn.com/)** - Composants UI modernes
-- **[Framer Motion](https://www.framer.com/motion/)** - Animations fluides
-- **[Lucide React](https://lucide.dev/)** - Icônes cohérentes
-
-### Backend & API
-- **[Next.js API Routes](https://nextjs.org/docs/api-routes/introduction)** - API intégrée
-- **[tRPC](https://trpc.io/)** - APIs type-safe (optionnel)
-- **[NextAuth.js](https://next-auth.js.org/)** - Authentification
-- **[Prisma](https://www.prisma.io/)** - ORM moderne
-- **[PostgreSQL](https://www.postgresql.org/)** - Base de données
-
-### Outils de Développement
-- **[ESLint](https://eslint.org/)** + **[Prettier](https://prettier.io/)** - Qualité code
-- **[Husky](https://github.com/typicode/husky)** - Git hooks
-- **[Commitizen](https://commitizen-tools.github.io/commitizen/)** - Commits conventionnels
-
----
-
-##  Fonctionnalités Principales
-
-### Version Actuelle (MVP)
-- [x] **Authentification** - Google, GitHub, Email
-- [x] **Profils utilisateurs** - Pays, niveau, technologies
-- [x] **Catalogue formations** - Python, JavaScript, Git, etc.
-- [x] **Système progression** - Badges, certificats
-- [x] **Mode sombre/clair** - Interface adaptative
-
-### En Développement
-- [ ] **Forum communautaire** - Topics, réponses, votes
-- [ ] **Bibliothèque replay** - Workshops, sessions live
-- [ ] **Projets étudiants** - Portfolio, collaboration
-- [ ] **Notifications temps réel** - WebSockets
-- [ ] **Interface admin** - Gestion contenu
-
-### Roadmap Future
-- [ ] **Application mobile** - React Native
-- [ ] **IDE intégré** - Monaco Editor
-- [ ] **API publique** - Intégrations tierces
-- [ ] **Analytics avancées** - Dashboard metrics
-- [ ] **Internationalisation** - Multi-langues
-
----
-
-## Déploiement
-
-### Développement Local
-Le projet est configuré pour fonctionner immédiatement avec :
-- Base de données PostgreSQL locale ou distante
-- Variables d'environnement en `.env.local`
-- Hot reload automatique
-
-### Production
-
-**Frontend** : [Vercel](https://vercel.com/) (intégration automatique GitHub)
+### **Vercel (Recommandé)**
 ```bash
-# Déploiement automatique via Git
-git push origin main
+npm run build
+vercel --prod
 ```
 
-**Base de données** : [PlanetScale](https://planetscale.com/) ou [Neon.db](https://neon.tech/)
+### **Autres plateformes**
+- **Netlify** : Compatible Next.js
+- **Railway** : Déploiement simple
+- **Docker** : Containerisation possible
+
+## 🤝 **Contribution**
+
+1. **Fork** le projet
+2. **Créez** une branche feature (`git checkout -b feature/AmazingFeature`)
+3. **Commitez** vos changements (`git commit -m 'Add AmazingFeature'`)
+4. **Poussez** vers la branche (`git push origin feature/AmazingFeature`)
+5. **Ouvrez** une Pull Request
+
+## 📝 **Roadmap**
+
+### **Phase 1 - MVP** ✅
+- [x] Authentification utilisateur
+- [x] Gestion des cours et leçons
+- [x] Forum communautaire basique
+- [x] Interface utilisateur responsive
+
+### **Phase 2 - Fonctionnalités Avancées** 🚧
+- [ ] Système de badges complet
+- [ ] Gamification avancée
+- [ ] Notifications en temps réel
+- [ ] API mobile
+
+### **Phase 3 - Écosystème** 📋
+- [ ] Marketplace de cours
+- [ ] Système de mentorat
+- [ ] Intégrations tierces
+- [ ] Analytics avancés
+
+## 🐛 **Dépannage**
+
+### **Problèmes courants**
+
+**Erreur de base de données**
 ```bash
-# Configuration DB production dans Vercel
-# Variables d'environnement via dashboard Vercel
+# Vérifier la connexion
+npx prisma db push
+
+# Réinitialiser la base
+npx prisma migrate reset
 ```
 
-**Domaine personnalisé** : Configuration via Vercel Dashboard
+**Erreur de build**
+```bash
+# Nettoyer le cache
+rm -rf .next
+npm run build
+```
+
+**Problèmes d'authentification**
+- Vérifier les variables d'environnement NextAuth
+- Contrôler les URLs de redirection
+
+## 📞 **Support**
+
+- **Issues** : [GitHub Issues](votre-repo/issues)
+- **Discussions** : [GitHub Discussions](votre-repo/discussions)
+- **Email** : support@c2p-platform.com
+
+## 📄 **Licence**
+
+Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
 
 ---
 
-## Contribution
+**Développé avec ❤️ par l'équipe C2P Platform**
 
-### Comment Contribuer ?
-
-1. **Fork** le repository
-2. **Créer** une branche feature (`git checkout -b feature/nouvelle-fonctionnalite`)
-3. **Commit** vos changements (`git commit -m 'feat: ajouter nouvelle fonctionnalité'`)
-4. **Push** vers la branche (`git push origin feature/nouvelle-fonctionnalite`)
-5. **Ouvrir** une Pull Request
-
-### Standards de Code
-- **ESLint** + **Prettier** configurés
-- **Commits conventionnels** (feat, fix, docs, etc.)
-- **Tests** requis pour nouvelles fonctionnalités
-- **TypeScript** strict mode activé
-
-### Issues & Bugs
-Utilisez les [GitHub Issues](https://github.com/c2p-africa/c2p-platform/issues) avec les labels :
-- `bug` - Bugs et erreurs
-- `feature` - Nouvelles fonctionnalités  
-- `documentation` - Améliorations docs
-- `design` - Améliorations UX/UI
-
----
-
-## 📞 Support & Contact
-
-### Équipe C2P
-- **Fondateur** : [] - founder@c2p-platform.com
-- **Lead Developer** : [] - dev@c2p-platform.com
-- **Community Manager** : [] - community@c2p-platform.com
-
-### Communauté
-- **Discord** : [Lien Discord C2P]()
-- **Whatsapp** : [C2P Africa]()
-- **LinkedIn** : [Code Premier Pas]()
-- **GitHub** : [C2P Organization]()
-
----
-
-## 📄 Licence & Légal
-
-**Licence** : MIT License  
-**Copyright** : © 2025 Code Premier Pas (C2P)  
-**RGPD** : Conformité complète pour utilisateurs européens  
-
-### Crédits
-- **Design inspiration** : Git Zérooo, Linear, Vercel
-- **Icons** : Lucide React
-- **Fonts** : Inter (Google Fonts)
-
----
-
-## Remerciements
-
-Merci à tous les contributeurs qui font de C2P une plateforme exceptionnelle pour la communauté dev africaine francophone !
-
-**Together, we code. Together, we grow.**
-
----
-
-*Dernière mise à jour : Août 2025*  
-*Version README : 1.0.0*
+*Une plateforme d'apprentissage moderne pour les développeurs de demain*

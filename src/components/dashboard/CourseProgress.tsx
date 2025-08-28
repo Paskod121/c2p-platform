@@ -46,15 +46,15 @@ const getTechnologyIcon = (technology: string) => {
 const getLevelColor = (level: string) => {
   switch (level) {
     case 'BEGINNER':
-      return 'bg-green-100 text-green-800 border-green-200'
+      return 'bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-400 border-green-200 dark:border-green-700'
     case 'INTERMEDIATE':
-      return 'bg-blue-100 text-blue-800 border-blue-200'
+      return 'bg-blue-100 dark:bg-blue-900/20 text-blue-800 dark:text-blue-400 border-blue-200 dark:border-blue-700'
     case 'ADVANCED':
-      return 'bg-orange-100 text-orange-800 border-orange-200'
+      return 'bg-orange-100 dark:bg-orange-900/20 text-orange-800 dark:text-orange-400 border-orange-200 dark:border-orange-700'
     case 'EXPERT':
-      return 'bg-purple-100 text-purple-800 border-purple-200'
+      return 'bg-purple-100 dark:bg-purple-900/20 text-purple-800 dark:text-purple-400 border-purple-200 dark:border-purple-700'
     default:
-      return 'bg-gray-100 text-gray-800 border-gray-200'
+      return 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-300 border-gray-200 dark:border-gray-700'
   }
 }
 
@@ -125,8 +125,8 @@ export function CourseProgress() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">Mes Cours en Cours</h2>
-          <p className="text-gray-600 mt-1">Continuez votre apprentissage et progressez vers l'expertise</p>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Mes Cours en Cours</h2>
+          <p className="text-gray-600 dark:text-gray-300 mt-1">Continuez votre apprentissage et progressez vers l'expertise</p>
         </div>
         <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
           Voir Tous les Cours
@@ -137,24 +137,24 @@ export function CourseProgress() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {courses.map((course, index) => (
           <div key={course.id} className="animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
-            <Card className={`hover:shadow-lg transition-all duration-300 hover:-translate-y-1 ${
-              course.isActive ? 'ring-2 ring-purple-200 bg-gradient-to-br from-white to-purple-50' : ''
+            <Card className={`hover:shadow-lg dark:hover:shadow-purple-500/10 transition-all duration-300 hover:-translate-y-1 ${
+              course.isActive ? 'ring-2 ring-purple-200 dark:ring-purple-700 bg-gradient-to-br from-white to-purple-50 dark:from-gray-800 dark:to-purple-900/20' : ''
             }`}>
               <CardHeader className="pb-3">
                 <div className="flex items-start justify-between">
                   <div className="flex items-center space-x-3">
-                    <div className="p-2 rounded-lg bg-gray-100">
+                    <div className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800">
                       {getTechnologyIcon(course.technology)}
                     </div>
                     <div>
-                      <CardTitle className="text-lg font-semibold text-gray-900">
+                      <CardTitle className="text-lg font-semibold text-gray-900 dark:text-white">
                         {course.title}
                       </CardTitle>
                       <div className="flex items-center space-x-2 mt-1">
                         <Badge variant="outline" className={getLevelColor(course.level)}>
                           {getLevelText(course.level)}
                         </Badge>
-                        <Badge variant="secondary" className="text-xs">
+                        <Badge variant="secondary" className="text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
                           {course.technology}
                         </Badge>
                       </div>
@@ -172,13 +172,13 @@ export function CourseProgress() {
                 {/* Barre de Progression */}
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Progression</span>
-                    <span className="font-medium text-gray-900">{course.progress}%</span>
+                    <span className="text-gray-600 dark:text-gray-300">Progression</span>
+                    <span className="font-medium text-gray-900 dark:text-white">{course.progress}%</span>
                   </div>
                   <div className="relative">
                     <Progress 
                       value={course.progress} 
-                      className="h-2 bg-gray-200"
+                      className="h-2 bg-gray-200 dark:bg-gray-700"
                     />
                   </div>
                 </div>
@@ -186,22 +186,22 @@ export function CourseProgress() {
                 {/* Statistiques */}
                 <div className="grid grid-cols-3 gap-4 text-center">
                   <div className="space-y-1">
-                    <div className="text-2xl font-bold text-gray-900">
+                    <div className="text-2xl font-bold text-gray-900 dark:text-white">
                       {course.completedLessons}/{course.totalLessons}
                     </div>
-                    <div className="text-xs text-gray-600">Leçons</div>
+                    <div className="text-xs text-gray-600 dark:text-gray-300">Leçons</div>
                   </div>
                   <div className="space-y-1">
-                    <div className="text-2xl font-bold text-gray-900">
+                    <div className="text-2xl font-bold text-gray-900 dark:text-white">
                       {course.estimatedTime}h
                     </div>
-                    <div className="text-xs text-gray-600">Restant</div>
+                    <div className="text-xs text-gray-600 dark:text-gray-300">Restant</div>
                   </div>
                   <div className="space-y-1">
-                    <div className="text-2xl font-bold text-gray-900">
+                    <div className="text-2xl font-bold text-gray-900 dark:text-white">
                       {Math.round((course.completedLessons / course.totalLessons) * 100)}%
                     </div>
-                    <div className="text-xs text-gray-600">Terminé</div>
+                    <div className="text-xs text-gray-600 dark:text-gray-300">Terminé</div>
                   </div>
                 </div>
 
@@ -213,12 +213,12 @@ export function CourseProgress() {
                       Continuer
                     </Button>
                   ) : (
-                    <Button variant="outline" className="flex-1">
+                    <Button variant="outline" className="flex-1 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800">
                       <CheckCircle className="mr-2 h-4 w-4" />
                       Cours Terminé
                     </Button>
                   )}
-                  <Button variant="ghost" size="icon">
+                  <Button variant="ghost" size="icon" className="text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">
                     <Target className="h-4 w-4" />
                   </Button>
                 </div>

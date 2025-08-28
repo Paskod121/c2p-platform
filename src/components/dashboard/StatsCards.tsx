@@ -35,34 +35,34 @@ const StatCard = ({ title, value, description, icon, trend, color }: StatCardPro
   }
 
   const bgColorClasses = {
-    purple: 'bg-purple-50 border-purple-200',
-    blue: 'bg-blue-50 border-blue-200',
-    green: 'bg-green-50 border-green-200',
-    orange: 'bg-orange-50 border-orange-200',
-    pink: 'bg-pink-50 border-pink-200'
+    purple: 'bg-purple-50 dark:bg-purple-900/20 border-purple-200 dark:border-purple-700',
+    blue: 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-700',
+    green: 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700',
+    orange: 'bg-orange-50 dark:bg-orange-900/20 border-orange-200 dark:border-orange-700',
+    pink: 'bg-pink-50 dark:bg-pink-900/20 border-pink-200 dark:border-pink-700'
   }
 
   return (
     <div className="hover:-translate-y-1 hover:scale-105 transition-all duration-300">
-      <Card className={`${bgColorClasses[color]} border-2 hover:shadow-lg transition-all duration-300`}>
+      <Card className={`${bgColorClasses[color]} border-2 hover:shadow-lg dark:hover:shadow-purple-500/10 transition-all duration-300`}>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium text-gray-700">{title}</CardTitle>
+          <CardTitle className="text-sm font-medium text-gray-700 dark:text-gray-200">{title}</CardTitle>
           <div className={`p-2 rounded-lg bg-gradient-to-br ${colorClasses[color]}`}>
             {icon}
           </div>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold text-gray-900">{value}</div>
-          <p className="text-xs text-gray-600 mt-1">{description}</p>
+          <div className="text-2xl font-bold text-gray-900 dark:text-white">{value}</div>
+          <p className="text-xs text-gray-600 dark:text-gray-300 mt-1">{description}</p>
           {trend && (
             <div className="flex items-center mt-2">
               <TrendingUp 
                 className={`h-4 w-4 mr-1 ${trend.isPositive ? 'text-green-500' : 'text-red-500'}`} 
               />
-              <span className={`text-xs font-medium ${trend.isPositive ? 'text-green-600' : 'text-red-600'}`}>
+              <span className={`text-xs font-medium ${trend.isPositive ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
                 {trend.isPositive ? '+' : ''}{trend.value}%
               </span>
-              <Badge variant="secondary" className="ml-2 text-xs">
+              <Badge variant="secondary" className="ml-2 text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
                 {trend.isPositive ? 'En hausse' : 'En baisse'}
               </Badge>
             </div>

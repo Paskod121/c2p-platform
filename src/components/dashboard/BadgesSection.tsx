@@ -34,50 +34,50 @@ const getRarityConfig = (rarity: string) => {
     case 'COMMON':
       return {
         color: 'from-gray-400 to-gray-500',
-        bgColor: 'bg-gray-100',
-        borderColor: 'border-gray-200',
-        textColor: 'text-gray-700',
-        glow: 'shadow-gray-200'
+        bgColor: 'bg-gray-100 dark:bg-gray-800',
+        borderColor: 'border-gray-200 dark:border-gray-700',
+        textColor: 'text-gray-700 dark:text-gray-300',
+        glow: 'shadow-gray-200 dark:shadow-gray-700'
       }
     case 'UNCOMMON':
       return {
         color: 'from-green-400 to-green-500',
-        bgColor: 'bg-green-100',
-        borderColor: 'border-green-200',
-        textColor: 'text-green-700',
-        glow: 'shadow-green-200'
+        bgColor: 'bg-green-100 dark:bg-green-900/20',
+        borderColor: 'border-green-200 dark:border-green-700',
+        textColor: 'text-green-700 dark:text-green-400',
+        glow: 'shadow-green-200 dark:shadow-green-700'
       }
     case 'RARE':
       return {
         color: 'from-blue-400 to-blue-500',
-        bgColor: 'bg-blue-100',
-        borderColor: 'border-blue-200',
-        textColor: 'text-blue-700',
-        glow: 'shadow-blue-200'
+        bgColor: 'bg-blue-100 dark:bg-blue-900/20',
+        borderColor: 'border-blue-200 dark:border-blue-700',
+        textColor: 'text-blue-700 dark:text-blue-400',
+        glow: 'shadow-blue-200 dark:shadow-blue-700'
       }
     case 'EPIC':
       return {
         color: 'from-purple-400 to-purple-500',
-        bgColor: 'bg-purple-100',
-        borderColor: 'border-purple-200',
-        textColor: 'text-purple-700',
-        glow: 'shadow-purple-200'
+        bgColor: 'bg-purple-100 dark:bg-purple-900/20',
+        borderColor: 'border-purple-200 dark:border-purple-700',
+        textColor: 'text-purple-700 dark:text-purple-400',
+        glow: 'shadow-purple-200 dark:shadow-purple-700'
       }
     case 'LEGENDARY':
       return {
         color: 'from-yellow-400 to-orange-500',
-        bgColor: 'bg-yellow-100',
-        borderColor: 'border-yellow-200',
-        textColor: 'text-yellow-700',
-        glow: 'shadow-yellow-200'
+        bgColor: 'bg-yellow-100 dark:bg-yellow-900/20',
+        borderColor: 'border-yellow-200 dark:border-yellow-700',
+        textColor: 'text-yellow-700 dark:text-yellow-400',
+        glow: 'shadow-yellow-200 dark:shadow-yellow-700'
       }
     default:
       return {
         color: 'from-gray-400 to-gray-500',
-        bgColor: 'bg-gray-100',
-        borderColor: 'border-gray-200',
-        textColor: 'text-gray-700',
-        glow: 'shadow-gray-200'
+        bgColor: 'bg-gray-100 dark:bg-gray-800',
+        borderColor: 'border-gray-200 dark:border-gray-700',
+        textColor: 'text-gray-700 dark:text-gray-300',
+        glow: 'shadow-gray-200 dark:shadow-gray-700'
       }
   }
 }
@@ -165,28 +165,28 @@ export function BadgesSection() {
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <h2 className="text-2xl font-bold text-gray-900">Mes Badges & Récompenses</h2>
-        <p className="text-gray-600 mt-1">Collectionnez des badges et montez en puissance</p>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Mes Badges & Récompenses</h2>
+        <p className="text-gray-600 dark:text-gray-300 mt-1">Collectionnez des badges et montez en puissance</p>
       </div>
 
       {/* Statistiques des Badges */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card className="text-center bg-gradient-to-br from-purple-50 to-blue-50 border-purple-200">
+        <Card className="text-center bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 border-purple-200 dark:border-purple-700">
           <CardContent className="pt-6">
-            <div className="text-3xl font-bold text-purple-600">{totalPoints}</div>
-            <p className="text-sm text-gray-600">Points Totaux</p>
+            <div className="text-3xl font-bold text-purple-600 dark:text-purple-400">{totalPoints}</div>
+            <p className="text-sm text-gray-600 dark:text-gray-300">Points Totaux</p>
           </CardContent>
         </Card>
-        <Card className="text-center bg-gradient-to-br from-green-50 to-emerald-50 border-green-200">
+        <Card className="text-center bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-green-200 dark:border-green-700">
           <CardContent className="pt-6">
-            <div className="text-3xl font-bold text-green-600">{earnedBadges}</div>
-            <p className="text-sm text-gray-600">Badges Obtenus</p>
+            <div className="text-3xl font-bold text-green-600 dark:text-green-400">{earnedBadges}</div>
+            <p className="text-sm text-gray-600 dark:text-gray-300">Badges Obtenus</p>
           </CardContent>
         </Card>
-        <Card className="text-center bg-gradient-to-br from-yellow-50 to-orange-50 border-yellow-200">
+        <Card className="text-center bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border-yellow-200 dark:border-yellow-700">
           <CardContent className="pt-6">
-            <div className="text-3xl font-bold text-yellow-600">{legendaryBadges}</div>
-            <p className="text-sm text-gray-600">Badges Légendaires</p>
+            <div className="text-3xl font-bold text-yellow-600 dark:text-yellow-400">{legendaryBadges}</div>
+            <p className="text-sm text-gray-600 dark:text-gray-300">Badges Légendaires</p>
           </CardContent>
         </Card>
       </div>
@@ -198,7 +198,7 @@ export function BadgesSection() {
           
           return (
             <div key={badge.id} className="animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
-              <Card className={`hover:shadow-lg transition-all duration-300 hover:-translate-y-1 ${rarityConfig.bgColor} ${rarityConfig.borderColor} border-2 relative overflow-hidden`}>
+              <Card className={`hover:shadow-lg dark:hover:shadow-purple-500/10 transition-all duration-300 hover:-translate-y-1 ${rarityConfig.bgColor} ${rarityConfig.borderColor} border-2 relative overflow-hidden`}>
                 {badge.isNew && (
                   <div className="absolute top-2 right-2 z-10 animate-pulse">
                     <Badge className="bg-red-500 text-white text-xs">
@@ -220,23 +220,23 @@ export function BadgesSection() {
                 </CardHeader>
                 
                 <CardContent className="text-center space-y-3">
-                  <p className="text-sm text-gray-600">{badge.description}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">{badge.description}</p>
                   
                   <div className="flex items-center justify-center space-x-2">
                     <Sparkles className="h-4 w-4 text-yellow-500" />
-                    <span className="text-sm font-medium text-gray-700">
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                       {badge.points} points
                     </span>
                   </div>
                   
-                  <div className="text-xs text-gray-500">
+                  <div className="text-xs text-gray-500 dark:text-gray-400">
                     Obtenu le {new Date(badge.earnedAt).toLocaleDateString('fr-FR')}
                   </div>
                   
                   <Button 
                     variant="outline" 
                     size="sm" 
-                    className="w-full border-purple-300 text-purple-600 hover:bg-purple-50"
+                    className="w-full border-purple-300 dark:border-purple-600 text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20"
                   >
                     Voir Détails
                   </Button>
@@ -249,12 +249,12 @@ export function BadgesSection() {
 
       {/* Call to Action */}
       <div className="text-center">
-        <Card className="bg-gradient-to-r from-purple-50 to-blue-50 border-purple-200">
+        <Card className="bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 border-purple-200 dark:border-purple-700">
           <CardContent className="pt-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
               Débloquez Plus de Badges !
             </h3>
-            <p className="text-gray-600 mb-4">
+            <p className="text-gray-600 dark:text-gray-300 mb-4">
               Continuez votre apprentissage pour débloquer des récompenses exclusives
             </p>
             <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">

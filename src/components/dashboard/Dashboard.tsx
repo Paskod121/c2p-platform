@@ -7,15 +7,9 @@ import { BadgesSection } from './BadgesSection'
 
 export function Dashboard() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
       {/* Header du Dashboard */}
-      <DashboardHeader 
-        userName="Alexandre Dev"
-        userEmail="alex@c2p-platform.com"
-        notificationsCount={5}
-        level={7}
-        experience={1850}
-      />
+      <DashboardHeader />
 
       {/* Contenu Principal */}
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -25,16 +19,16 @@ export function Dashboard() {
             <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-4">
               Bienvenue sur votre Dashboard !
             </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Continuez votre voyage d'apprentissage et découvrez de nouvelles opportunités de développement
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              Continuez votre voyage d&apos;apprentissage et découvrez de nouvelles opportunités de développement
             </p>
           </div>
 
           {/* Cartes de Statistiques */}
           <div>
             <div className="mb-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Vue d'Ensemble</h2>
-              <p className="text-gray-600">Vos performances et réalisations en un coup d'œil</p>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Vue d&apos;Ensemble</h2>
+              <p className="text-gray-600 dark:text-gray-300">Vos performances et réalisations en un coup d&apos;œil</p>
             </div>
             <StatsCards />
           </div>

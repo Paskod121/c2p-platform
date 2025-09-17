@@ -17,6 +17,8 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { useEffect, useState } from 'react'
+import { useAuth } from '@/hooks/useAuth'
 
 interface BadgeItem {
   id: string
@@ -100,7 +102,10 @@ const getRarityText = (rarity: string) => {
 }
 
 export function BadgesSection() {
-  const badges: BadgeItem[] = [
+  const { user } = useAuth()
+  const [badges, setBadges] = useState<BadgeItem[]>([])
+
+  const defaultBadges: BadgeItem[] = [
     {
       id: '1',
       name: 'Premier Pas',
@@ -157,6 +162,40 @@ export function BadgesSection() {
       points: 75
     }
   ]
+
+  useEffect(() => {
+    let isMounted = true
+
+    async function loadBadges() {
+      if (!user?.id) {
+        if (isMounted) setBadges(defaultBadges)
+        return
+      }
+
+      try {
+        const res = await fetch(`/api/badges?userId=${encodeURIComponent(user.id)}`)
+        if (!res.ok) throw new Error('Failed to fetch')
+        const json = await res.json()
+
+        const apiBadges: BadgeItem[] = (json.badges ?? []).map((b: any) => ({
+          id: b.id,
+          name: b.name,
+          description: b.description,
+          icon: <Award className="h-6 w-6" />,
+          rarity: b.rarity,
+          earnedAt: typeof b.earnedAt === 'string' ? b.earnedAt : new Date(b.earnedAt).toISOString().slice(0, 10),
+          points: b.points
+        }))
+
+        if (isMounted) setBadges(apiBadges)
+      } catch (e) {
+        if (isMounted) setBadges(defaultBadges)
+      }
+    }
+
+    loadBadges()
+    return () => { isMounted = false }
+  }, [user?.id])
 
   const totalPoints = badges.reduce((sum, badge) => sum + badge.points, 0)
   const earnedBadges = badges.length

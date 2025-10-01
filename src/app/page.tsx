@@ -19,6 +19,495 @@ import { Button } from '@/components/ui/button'
 import { ThemeToggle } from '@/components/ui/theme-toggle'
 import { LiveStrip } from '@/components/community/LiveStrip'
 
+// Capsule d’Initiation interactive (micro onboarding + quiz éclair)
+function CapsuleInitiation() {
+  const [step, setStep] = useState<'niveau' | 'objectif' | 'quiz' | 'resultat'>('niveau')
+  const [niveau, setNiveau] = useState<'debutant' | 'autodidacte' | 'reconversion' | null>(null)
+  const [objectif, setObjectif] = useState<'job' | 'projet' | 'comprendre' | null>(null)
+  const [reponse, setReponse] = useState<string>('')
+  const [score, setScore] = useState<number | null>(null)
+
+  const lancerQuiz = () => setStep('quiz')
+  const terminer = () => {
+    const ok = reponse.trim().toLowerCase() === 'html'
+    setScore(ok ? 1 : 0)
+    setStep('resultat')
+  }
+
+  return (
+    <section className="relative mx-auto max-w-5xl mb-10 sm:mb-14 px-4">
+      <div className="relative overflow-hidden rounded-3xl border border-gray-200/70 dark:border-white/10 bg-white/80 dark:bg-black/30 backdrop-blur-xl">
+        <div className="absolute inset-0 pointer-events-none opacity-40 bg-[conic-gradient(from_120deg_at_50%_50%,#22d3ee33,#a855f733,#ec489933,#22d3ee33)] animate-[spin_10s_linear_infinite]" />
+        <div className="relative z-10 p-6 sm:p-10">
+          <div className="flex items-center justify-between gap-4 mb-6">
+            <h3 className="text-2xl sm:text-3xl font-black text-gray-900 dark:text-white">Capsule d’Initiation</h3>
+            <span className="text-xs sm:text-sm text-cyan-700 dark:text-cyan-300 font-semibold">60 secondes</span>
+          </div>
+
+          {step === 'niveau' && (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {[
+                { id: 'debutant', label: 'Débutant total' },
+                { id: 'autodidacte', label: 'Auto-didacte bloqué' },
+                { id: 'reconversion', label: 'Reconversion pro' },
+              ].map(opt => (
+                <button
+                  key={opt.id}
+                  onClick={() => { setNiveau(opt.id as 'debutant' | 'autodidacte' | 'reconversion'); setStep('objectif') }}
+                  className={`rounded-2xl border p-4 text-left transition-all ${niveau === opt.id ? 'border-cyan-400 bg-cyan-50 dark:bg-cyan-900/20' : 'border-gray-200 dark:border-white/10 hover:border-cyan-300'} text-gray-900 dark:text-white`}
+                >
+                  <span className="text-sm font-semibold">{opt.label}</span>
+                  <div className="text-xs text-gray-600 dark:text-gray-300 mt-1">On t’oriente en 3 clics</div>
+                </button>
+              ))}
+            </div>
+          )}
+
+          {step === 'objectif' && (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {[
+                { id: 'job', label: 'Trouver un job' },
+                { id: 'projet', label: 'Construire un projet' },
+                { id: 'comprendre', label: 'Comprendre les bases' },
+              ].map(opt => (
+                <button
+                  key={opt.id}
+                  onClick={() => { setObjectif(opt.id as 'job' | 'projet' | 'comprendre'); lancerQuiz() }}
+                  className={`rounded-2xl border p-4 text-left transition-all ${objectif === opt.id ? 'border-purple-400 bg-purple-50 dark:bg-purple-900/20' : 'border-gray-200 dark:border-white/10 hover:border-purple-300'} text-gray-900 dark:text-white`}
+                >
+                  <span className="text-sm font-semibold">{opt.label}</span>
+                  <div className="text-xs text-gray-600 dark:text-gray-300 mt-1">On te prépare un parcours</div>
+                </button>
+              ))}
+            </div>
+          )}
+
+          {step === 'quiz' && (
+            <div className="grid grid-cols-1 gap-4">
+              <div className="text-gray-900 dark:text-white font-semibold">Quiz éclair: Quel langage structure le contenu d’une page web ?</div>
+              <input
+                aria-label="Réponse au quiz"
+                value={reponse}
+                onChange={(e) => setReponse(e.target.value)}
+                placeholder="Tape ta réponse… (indice: 4 lettres)"
+                className="rounded-xl px-4 py-3 bg-white/70 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              />
+              <div className="flex justify-end">
+                <Button onClick={terminer} className="bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-700 hover:to-purple-700">Valider</Button>
+              </div>
+            </div>
+          )}
+
+          {step === 'resultat' && (
+            <div className="grid grid-cols-1 gap-4">
+              <div className={`text-lg font-black ${score ? 'text-cyan-700 dark:text-cyan-300' : 'text-pink-700 dark:text-pink-300'}`}>
+                {score ? 'Yes — bien vu !' : 'Pas grave — on va t’accompagner.'}
+              </div>
+              <div className="text-sm text-gray-700 dark:text-gray-300">
+                Parcours conseillé: <span className="font-semibold">HTML/CSS 7 jours</span> → <span className="font-semibold">JS 21 jours</span>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <Link href="/auth/register">
+                  <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">Commencer maintenant</Button>
+                </Link>
+                <Link href="/courses">
+                  <Button variant="outline" className="border-purple-300 text-purple-700 dark:border-purple-600 dark:text-purple-300">Explorer les parcours</Button>
+                </Link>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// Anneau de Communauté (avatars en orbite, pulsation douce)
+function AnneauCommunaute() {
+  const membres = [
+    { id: 1, nom: 'Aya', couleur: 'bg-cyan-500' },
+    { id: 2, nom: 'Noah', couleur: 'bg-purple-500' },
+    { id: 3, nom: 'Lina', couleur: 'bg-pink-500' },
+    { id: 4, nom: 'Yanis', couleur: 'bg-emerald-500' },
+    { id: 5, nom: 'Mia', couleur: 'bg-amber-500' },
+    { id: 6, nom: 'Eli', couleur: 'bg-blue-500' },
+  ]
+
+  return (
+    <section className="relative py-20">
+      <div className="absolute inset-0 -z-10 opacity-60 [mask-image:radial-gradient(60%_60%_at_50%_50%,black,transparent)]">
+        <div className="mx-auto max-w-6xl h-[420px] rounded-full bg-[radial-gradient(circle_at_50%_50%,rgba(165,180,252,0.15),transparent_60%)]" />
+      </div>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h3 className="text-3xl sm:text-4xl font-black text-gray-900 dark:text-white mb-8">Anneau de Communauté</h3>
+        <p className="text-gray-700 dark:text-gray-300 mb-10">Des membres en orbite autour d’un même objectif.</p>
+        <div className="relative mx-auto w-[360px] sm:w-[440px] h-[360px] sm:h-[440px]">
+          <div className="absolute inset-0 rounded-full border border-gray-200 dark:border-white/10 animate-[spin_18s_linear_infinite]" />
+          <div className="absolute inset-8 rounded-full border border-gray-200/70 dark:border-white/10 animate-[spin_12s_linear_infinite_reverse]" />
+          {membres.map((m, i) => (
+            <div
+              key={m.id}
+              className={`absolute w-12 h-12 sm:w-14 sm:h-14 ${m.couleur} rounded-full ring-4 ring-white/70 dark:ring-white/10 text-white flex items-center justify-center font-bold shadow-lg`}
+              style={{
+                top: '50%',
+                left: '50%',
+                transform: `rotate(${(360 / membres.length) * i}deg) translate(${i % 2 === 0 ? 150 : 115}px) rotate(-${(360 / membres.length) * i}deg)`
+              }}
+              aria-label={`Membre ${m.nom}`}
+            >
+              {m.nom[0]}
+            </div>
+          ))}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 sm:w-32 sm:h-32 rounded-3xl bg-gradient-to-br from-cyan-500 to-purple-600 text-white font-black flex items-center justify-center shadow-2xl animate-pulse">
+            VIBE
+          </div>
+        </div>
+        <div className="mt-8 flex justify-center gap-4">
+          <Link href="/forum">
+            <Button variant="outline" className="border-cyan-300 text-cyan-700 dark:border-cyan-600 dark:text-cyan-300">Rejoindre le forum</Button>
+          </Link>
+          <Link href="/auth/register">
+            <Button className="bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-700 hover:to-purple-700">Entrer dans l’anneau</Button>
+          </Link>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// Pulse d’activité discret (fond réactif aux événements simulés)
+function PulseActivite() {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+    let raf = 0
+    const pulses: Array<{ x: number; y: number; r: number; a: number; hue: number }> = []
+    const resize = () => {
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+    }
+    resize()
+    const spawn = () => {
+      pulses.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: 0,
+        a: 0.35,
+        hue: 240 + Math.random() * 60
+      })
+    }
+    const tick = () => {
+      if (!ctx) return
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      pulses.forEach((p, i) => {
+        p.r += 0.8
+        p.a *= 0.985
+        if (p.a < 0.02) pulses.splice(i, 1)
+        ctx.beginPath()
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
+        ctx.strokeStyle = `hsla(${p.hue},70%,60%,${p.a})`
+        ctx.lineWidth = 1
+        ctx.stroke()
+      })
+      if (Math.random() < 0.06) spawn()
+      raf = requestAnimationFrame(tick)
+    }
+    window.addEventListener('resize', resize)
+    tick()
+    return () => {
+      window.removeEventListener('resize', resize)
+      cancelAnimationFrame(raf)
+    }
+  }, [])
+  return <canvas ref={canvasRef} className="pointer-events-none fixed inset-0 z-[1] opacity-20 dark:opacity-15" />
+}
+
+// Sandbox HTML/CSS live (inline, ultra-light)
+function SandboxLive() {
+  const [html, setHtml] = useState('<h1>Salut</h1>\n<p>Édite et vois le rendu.</p>')
+  const [css, setCss] = useState('h1{color:#8b5cf6;font-family:system-ui;} p{color:#374151;}')
+  const htmlAreaRef = useRef<HTMLTextAreaElement>(null)
+  const [goal] = useState({
+    title: 'Ajouter un <h2> personnalisé et le colorer en violet',
+    check: (doc: string, styles?: string) => {
+      const hasH2 = /<h2[^>]*>\s*[^<]+\s*<\/h2>/i.test(doc)
+      const hasColor = /h2\s*\{[^}]*color\s*:\s*(#8b5cf6|rgb\(\s*139\s*,\s*92\s*,\s*246\s*\)|purple)/i.test(styles ?? '')
+      return hasH2 && hasColor
+    }
+  })
+  const [isGoalMet, setIsGoalMet] = useState(false)
+  const [progress, setProgress] = useState(0)
+  const [showConfetti, setShowConfetti] = useState(false)
+  const [focusMode, setFocusMode] = useState(false)
+  const preRef = useRef<HTMLPreElement>(null)
+  const [currentTag, setCurrentTag] = useState<string | null>(null)
+
+  const computeCurrentTag = (text: string, caret: number): string | null => {
+    if (caret < 0 || caret > text.length) return null
+    const start = text.lastIndexOf('<', caret)
+    const end = text.indexOf('>', caret)
+    if (start === -1 || end === -1 || end < start) return null
+    const fragment = text.slice(start + 1, end).trim()
+    if (!fragment || fragment.startsWith('!') || fragment.startsWith('?')) return null
+    const name = fragment.replace(/^\/?/, '').match(/^([a-zA-Z0-9-]+)/)?.[1]
+    return name || null
+  }
+
+  const highlightHtml = (code: string, activeTag?: string | null): string => {
+    let out = code
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+    // strings
+    out = out.replace(/(&quot;.*?&quot;|'.*?')/g, '<span class="text-rose-600 dark:text-rose-400">$1<\/span>')
+    // attributes
+    out = out.replace(/(\s)([a-zA-Z-:]+)(=)/g, '$1<span class="text-amber-600 dark:text-amber-300">$2<\/span>$3')
+    // tags
+    out = out.replace(/(&lt;\/?)([a-zA-Z0-9-]+)([^&]*?)(\/?&gt;)/g, (_m, p1, p2, p3, p4) => {
+      const tagName = String(p2)
+      const isActive = activeTag && tagName.toLowerCase() === activeTag.toLowerCase()
+      const tagClass = isActive ? 'text-purple-600 dark:text-purple-300' : 'text-purple-600 dark:text-purple-400'
+      return `<span class=\"text-cyan-600 dark:text-cyan-400\">${p1}</span><span class=\"${tagClass}\">${tagName}</span><span>${p3}</span><span class=\"text-cyan-600 dark:text-cyan-400\">${p4}</span>`
+    })
+    return out
+  }
+
+  const onHtmlKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === '>' && htmlAreaRef.current) {
+      const el = htmlAreaRef.current
+      const { selectionStart, selectionEnd } = el
+      const before = html.slice(0, selectionStart)
+      const after = html.slice(selectionEnd)
+      const m = before.match(/<([a-zA-Z0-9-]+)([^>]*)>$/)
+      if (m && !/\/$/.test(m[0]) && !/^<\//.test(m[0])) {
+        const tag = m[1]
+        const insertion = '></' + tag + '>'
+        const next = before + insertion + after
+        setHtml(next)
+        requestAnimationFrame(() => {
+          if (htmlAreaRef.current) {
+            const pos = selectionStart + 1 // caret between > and </tag>
+            htmlAreaRef.current.selectionStart = pos
+            htmlAreaRef.current.selectionEnd = pos
+          }
+        })
+      }
+    }
+    // Auto-indentation & Tab intelligente
+    if (e.key === 'Enter' && htmlAreaRef.current) {
+      const el = htmlAreaRef.current
+      const { selectionStart, selectionEnd } = el
+      const before = html.slice(0, selectionStart)
+      const after = html.slice(selectionEnd)
+      const prevIsClose = />$/.test(before)
+      const nextHasClosing = /^\s*<\//.test(after)
+      const shouldSmartIndent = prevIsClose && nextHasClosing
+      if (!shouldSmartIndent) {
+        // Laisser le comportement natif (nouvelle ligne simple)
+        return
+      }
+      e.preventDefault()
+      const lineStart = before.lastIndexOf('\n') + 1
+      const currentIndent = before.slice(lineStart).match(/^\s*/)?.[0] ?? ''
+      const inserted = `\n${currentIndent}  `
+      const closingPad = `\n${currentIndent}`
+      const next = before + inserted + closingPad + after
+      setHtml(next)
+      requestAnimationFrame(() => {
+        if (htmlAreaRef.current) {
+          const pos = selectionStart + inserted.length
+          htmlAreaRef.current.selectionStart = pos
+          htmlAreaRef.current.selectionEnd = pos
+          syncScroll()
+        }
+      })
+    }
+    if (e.key === 'Tab' && htmlAreaRef.current) {
+      e.preventDefault()
+      const el = htmlAreaRef.current
+      const { selectionStart, selectionEnd } = el
+      const before = html.slice(0, selectionStart)
+      const after = html.slice(selectionEnd)
+      const next = before + '  ' + after
+      setHtml(next)
+      requestAnimationFrame(() => {
+        if (htmlAreaRef.current) {
+          const pos = selectionStart + 2
+          htmlAreaRef.current.selectionStart = pos
+          htmlAreaRef.current.selectionEnd = pos
+        }
+      })
+    }
+  }
+
+  function similarityToGoal(doc: string, styles?: string): number {
+    const hasH2 = /<h2/i.test(doc)
+    const hasColor = /h2\s*\{[^}]*color/i.test(styles ?? '')
+    if (hasH2 && hasColor) return 100
+    if (hasH2 || hasColor) return 50
+    return 10
+  }
+
+  function formatHtml(doc: string): string {
+    try {
+      const tokens = doc.replace(/\r/g, '').split(/\n/)
+      let indent = 0
+      const out = tokens.map(l => {
+        const trimmed = l.trim()
+        if (/^<\//.test(trimmed)) indent = Math.max(0, indent - 1)
+        const line = '  '.repeat(indent) + trimmed
+        if (/^<[^!/?][^>]*>$/.test(trimmed) && !/\/\s*>$/.test(trimmed) && !/<(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)[\s/>]/i.test(trimmed)) {
+          if (!/^<.*<\//.test(trimmed)) indent += 1
+        }
+        return line
+      })
+      return out.join('\n')
+    } catch {
+      return doc
+    }
+  }
+  const updateCaretTag = () => {
+    if (!htmlAreaRef.current) return
+    const pos = htmlAreaRef.current.selectionStart
+    setCurrentTag(computeCurrentTag(html, pos))
+  }
+
+  const srcDoc = `<!doctype html><html><head><style>${css}</style></head><body>${html}</body></html>`
+
+  const syncScroll = () => {
+    const ta = htmlAreaRef.current
+    const pre = preRef.current
+    if (ta && pre) {
+      pre.scrollTop = ta.scrollTop
+      pre.scrollLeft = ta.scrollLeft
+    }
+  }
+
+  useEffect(() => {
+    // Assurer la synchro lors des changements de contenu/Select All
+    syncScroll()
+  }, [html])
+
+  return (
+    <section className="relative mx-auto max-w-6xl px-4 mb-16">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="rounded-2xl border border-gray-200 dark:border-white/10 bg-white/80 dark:bg-white/5 backdrop-blur-xl p-4">
+          <div className="flex items-center justify-between mb-2">
+            <div className="text-sm font-semibold text-gray-700 dark:text-gray-200">HTML</div>
+            <div className="flex items-center gap-2">
+              <button onClick={() => setFocusMode(v => !v)} className="text-xs px-2 py-1 rounded-md border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-white/5">{focusMode ? 'Afficher aperçu' : 'Mode focus'}</button>
+              <button onClick={() => setHtml(formatHtml(html))} className="text-xs px-2 py-1 rounded-md border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-white/5">Auto‑format</button>
+            </div>
+          </div>
+          <div className="mb-3 rounded-xl bg-gray-50/60 dark:bg-white/5 border border-gray-200 dark:border-white/10 p-3">
+            <div className="text-xs font-semibold text-gray-800 dark:text-gray-200">Objectif</div>
+            <div className="flex items-center justify-between mt-1">
+              <div className="text-xs text-gray-700 dark:text-gray-300">{goal.title}</div>
+              <div className="flex items-center gap-2">
+                <div className="w-28 h-1.5 rounded-full bg-gray-200 dark:bg-white/10 overflow-hidden"><div className="h-full bg-gradient-to-r from-cyan-500 to-purple-600" style={{ width: `${progress}%` }} /></div>
+                <span className={`text-xs ${isGoalMet ? 'text-emerald-600 dark:text-emerald-300' : 'text-gray-500 dark:text-gray-400'}`}>{isGoalMet ? '100%' : `${progress}%`}</span>
+              </div>
+            </div>
+          </div>
+          {showConfetti && <div aria-hidden className="pointer-events-none absolute -mt-2 right-4 text-2xl">🎉</div>}
+          <div className="relative">
+            <pre ref={preRef} aria-hidden className="hidden">
+              <code />
+            </pre>
+            <textarea
+              ref={htmlAreaRef}
+              aria-label="Éditeur HTML"
+              value={html}
+              onChange={(e) => { const v = e.target.value; setHtml(v); const ok = goal.check(v, css); setIsGoalMet(ok); setProgress(ok ? 100 : similarityToGoal(v, css)); if (ok) { setShowConfetti(true); setTimeout(() => setShowConfetti(false), 1200) } }}
+              onKeyDown={onHtmlKeyDown}
+              onScroll={undefined as any}
+              onFocus={undefined as any}
+              onSelect={undefined as any}
+              spellCheck={false}
+              wrap="off"
+              className="relative w-full h-40 rounded-xl bg-white/70 dark:bg-black/30 border border-gray-200 dark:border-white/10 px-3 py-3 text-sm leading-6 text-gray-900 dark:text-white caret-cyan-500 selection:bg-cyan-200/40 dark:selection:bg-cyan-400/30 focus:outline-none focus:ring-2 focus:ring-cyan-400 font-mono resize-none"
+              style={{ whiteSpace: 'pre', tabSize: 2 as any }}
+            />
+          </div>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {[
+              { label: 'Insérer <h1>', insert: '<h1>Salut</h1>' },
+              { label: 'Ajouter <p>', insert: '<p>Paragraphe</p>' },
+              { label: 'Image + légende', insert: '<figure>\n  <img src="/window.svg" alt="Exemple"/>\n  <figcaption>Légende</figcaption>\n</figure>' },
+            ].map((h) => (
+              <button key={h.label} onClick={() => setHtml(prev => (prev ? prev + '\n' + h.insert : h.insert))} className="text-xs px-2 py-1 rounded-md border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-white/5">
+                {h.label}
+              </button>
+            ))}
+          </div>
+          <div className="text-sm font-semibold text-gray-700 dark:text-gray-200 mt-4 mb-2">CSS</div>
+          <textarea
+            aria-label="Éditeur CSS"
+            value={css}
+            onChange={(e) => { const s = e.target.value; setCss(s); const ok = goal.check(html, s); setIsGoalMet(ok); setProgress(ok ? 100 : similarityToGoal(html, s)); if (ok) { setShowConfetti(true); setTimeout(() => setShowConfetti(false), 1200) } }}
+            spellCheck={false}
+            className="w-full h-32 rounded-xl bg-white/70 dark:bg-black/30 border border-gray-200 dark:border-white/10 p-3 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-400"
+          />
+        </div>
+        <div className={`rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-black overflow-hidden ${focusMode ? 'opacity-30 pointer-events-none' : ''}`}>
+          <iframe title="Aperçu" className="w-full h-[28rem] bg-white dark:bg-black" srcDoc={srcDoc} />
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// Forge de Badge (mini-challenge drag & drop)
+function ForgeBadge() {
+  const [items, setItems] = useState(['<h1>', 'Bonjour', '</h1>'])
+  const [dragIndex, setDragIndex] = useState<number | null>(null)
+  const [minted, setMinted] = useState(false)
+  const correct = ['<h1>', 'Bonjour', '</h1>']
+  const onDrop = (to: number) => {
+    if (dragIndex === null) return
+    const next = [...items]
+    const [moved] = next.splice(dragIndex, 1)
+    next.splice(to, 0, moved)
+    setItems(next)
+    setDragIndex(null)
+    if (JSON.stringify(next) === JSON.stringify(correct)) setMinted(true)
+  }
+  return (
+    <section className="relative mx-auto max-w-5xl px-4 mb-16">
+      <div className="rounded-3xl border border-gray-200 dark:border-white/10 bg-white/80 dark:bg-black/30 backdrop-blur-xl p-6 sm:p-10">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-2xl sm:text-3xl font-black text-gray-900 dark:text-white">Forge ton 1er badge</h3>
+          {minted && <span className="text-xs sm:text-sm text-emerald-600 dark:text-emerald-300 font-semibold">Minté ✓</span>}
+        </div>
+        <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">Glisse les blocs pour former un titre HTML valide.</p>
+        <div className="flex flex-wrap gap-3">
+          {items.map((it, i) => (
+            <div
+              key={i}
+              draggable
+              onDragStart={() => setDragIndex(i)}
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={() => onDrop(i)}
+              className="select-none cursor-move rounded-xl px-4 py-2 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 border border-cyan-400/30 dark:border-white/10 text-gray-900 dark:text-white"
+              aria-label={`Bloc ${it}`}
+            >
+              {it}
+            </div>
+          ))}
+        </div>
+        <div className="mt-6">
+          <div className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-sm border ${minted ? 'border-emerald-400 text-emerald-700 dark:text-emerald-300' : 'border-gray-300 text-gray-700 dark:text-gray-300'}`}>
+            {minted ? 'Badge "Initiation HTML" obtenu' : 'Ordre correct: ouverture • texte • fermeture'}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 // Composant Canvas Interactif avec Particules
 function CanvasInteractif() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -203,6 +692,7 @@ export default function Home() {
   return (
     <div className="min-h-screen relative bg-gradient-to-br from-gray-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900 transition-colors duration-300 overflow-hidden">
       <CanvasInteractif />
+      <PulseActivite />
       {/* Header */}
       <header className="relative z-10 border-b border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
         <nav className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
@@ -289,13 +779,19 @@ export default function Home() {
             <p className="text-lg sm:text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 sm:mb-12 leading-relaxed max-w-4xl mx-auto px-4">
               Rejoignez la <span className="text-cyan-600 dark:text-cyan-400 font-bold">révolution du code</span> où chaque ligne 
               forge ton <span className="text-purple-600 dark:text-purple-400 font-bold">destin numérique</span>. 
-              Ici, on ne suit pas de cours, on <span className="text-pink-600 dark:text-pink-400 font-bold">conquiert l'avenir</span>.
+              Ici, on ne suit pas de cours, on <span className="text-pink-600 dark:text-pink-400 font-bold">conquiert l\'avenir</span>.
             </p>
 
             {/* LiveStrip compact */}
             <div className="mx-auto max-w-5xl mb-8 sm:mb-10 px-4">
               <LiveStrip />
             </div>
+
+          {/* Capsule d’Initiation interactive */}
+          <CapsuleInitiation />
+
+          {/* Sandbox live */}
+          <SandboxLive />
             
             {/* CTA Hologrammes Révolutionnaires */}
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center mb-14 px-4">
@@ -362,7 +858,7 @@ export default function Home() {
               {[
                 {
                   icone: <Sword className="h-16 w-16 text-cyan-500" />,
-                  titre: "L'Art de la Guerre",
+                  titre: "L\'Art de la Guerre",
                   description: "Défis tactiques qui forgent ton esprit de stratège. Chaque victoire te rapproche de la maîtrise absolue.",
                   couleur: "from-cyan-500/20 to-blue-500/20",
                   bordure: "border-cyan-400/30",
@@ -370,7 +866,7 @@ export default function Home() {
                 },
                 {
                   icone: <Brain className="h-16 w-16 text-purple-500" />,
-                  titre: "L'Intelligence Collective",
+                  titre: "L\'Intelligence Collective",
                   description: "La communauté devient ton cerveau étendu. Chaque membre apporte sa sagesse à ta quête.",
                   couleur: "from-purple-500/20 to-pink-500/20",
                   bordure: "border-purple-400/30",
@@ -386,7 +882,7 @@ export default function Home() {
                 },
                 {
                   icone: <Rocket className="h-16 w-16 text-pink-500" />,
-                  titre: "L'Évolution Continue",
+                  titre: "L\'Évolution Continue",
                   description: "Projets qui défient les limites. Chaque création te propulse vers de nouveaux horizons.",
                   couleur: "from-pink-500/20 to-red-500/20",
                   bordure: "border-pink-400/30",
@@ -428,17 +924,23 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Anneau de Communauté */}
+        <AnneauCommunaute />
+
+        {/* Forge de Badge */}
+        <ForgeBadge />
+
         {/* CTA Final Révolutionnaire */}
         <section className="py-24 bg-gradient-to-br from-white via-purple-50 to-white dark:from-black dark:via-purple-900 dark:to-black relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-pink-500/10"></div>
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
             <h2 className="text-6xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-purple-700 to-pink-600 dark:from-cyan-400 dark:via-purple-400 dark:to-pink-400 mb-8">
-              TON DESTIN T'ATTEND
+              TON DESTIN T\'ATTEND
             </h2>
             <p className="text-2xl text-gray-700 dark:text-purple-100 mb-12 max-w-4xl mx-auto leading-relaxed">
-              La <span className="text-cyan-700 dark:text-cyan-300 font-bold">révolution du code</span> t'ouvre ses portes. 
+              La <span className="text-cyan-700 dark:text-cyan-300 font-bold">révolution du code</span> t\'ouvre ses portes. 
               Choisis ton <span className="text-pink-700 dark:text-pink-300 font-bold">chemin de légende</span> et 
-              <span className="text-yellow-700 dark:text-yellow-300 font-bold"> deviens immortel</span> dans l'univers du code.
+              <span className="text-yellow-700 dark:text-yellow-300 font-bold"> deviens immortel</span> dans l\'univers du code.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <CTAHologramme href="/auth/register" className="max-w-lg">
@@ -483,7 +985,7 @@ export default function Home() {
               </div>
             </div>
             <p className="text-gray-700 dark:text-purple-100 mb-10 max-w-3xl leading-relaxed">
-              L'endroit où les <span className="text-cyan-700 dark:text-cyan-300 font-semibold">révolutionnaires du code</span> forgent leur légende. 
+              L\'endroit où les <span className="text-cyan-700 dark:text-cyan-300 font-semibold">révolutionnaires du code</span> forgent leur légende. 
               Rejoins la <span className="text-pink-700 dark:text-pink-300 font-semibold">guilde des immortels</span>.
             </p>
           </div>
@@ -534,8 +1036,8 @@ export default function Home() {
                   <Mail className="h-5 w-5 text-purple-700 dark:text-purple-300" />
                 </a>
               </div>
+              </div>
             </div>
-          </div>
           {/* Bas de page */}
           <div className="mt-12 pt-8 border-t border-gray-200 dark:border-purple-500/20 flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-gray-600 dark:text-purple-300">

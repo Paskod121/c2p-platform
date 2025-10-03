@@ -19,33 +19,66 @@ jest.mock('next/router', () => ({
         off: jest.fn(),
         emit: jest.fn(),
       },
-      isFallback: false,
     }
   },
 }))
 
-// Mock Next.js image
-jest.mock('next/image', () => ({
-  __esModule: true,
-  default: (props) => {
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img {...props} />
+// Mock Next.js navigation
+jest.mock('next/navigation', () => ({
+  useRouter() {
+    return {
+      push: jest.fn(),
+      replace: jest.fn(),
+      prefetch: jest.fn(),
+      back: jest.fn(),
+      forward: jest.fn(),
+      refresh: jest.fn(),
+    }
+  },
+  useSearchParams() {
+    return new URLSearchParams()
+  },
+  usePathname() {
+    return '/'
   },
 }))
 
-// Mock Next.js link
-jest.mock('next/link', () => ({
-  __esModule: true,
-  default: ({ children, href, ...props }) => {
-    return <a href={href} {...props}>{children}</a>
-  },
-}))
+// Mock Next.js Link
+jest.mock('next/link', () => {
+  return function MockLink({ children, href, ...props }) {
+    return (
+      <a href={href} {...props}>
+        {children}
+      </a>
+    )
+  }
+})
 
-// Mock environment variables
-process.env.NEXTAUTH_URL = 'http://localhost:3000'
-process.env.NEXTAUTH_SECRET = 'test-secret'
+// Mock Next.js Image
+jest.mock('next/image', () => {
+  return function MockImage({ src, alt, ...props }) {
+    return <img src={src} alt={alt} {...props} />
+  }
+})
 
-// Global test utilities
+// Mock Canvas API
+Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
+  value: jest.fn(() => ({
+    clearRect: jest.fn(),
+    beginPath: jest.fn(),
+    arc: jest.fn(),
+    fill: jest.fn(),
+    stroke: jest.fn(),
+    moveTo: jest.fn(),
+    lineTo: jest.fn(),
+    fillStyle: '',
+    strokeStyle: '',
+    lineWidth: 0,
+    globalAlpha: 1,
+  })),
+})
+
+// Mock ResizeObserver
 global.ResizeObserver = jest.fn().mockImplementation(() => ({
   observe: jest.fn(),
   unobserve: jest.fn(),
@@ -73,3 +106,35 @@ Object.defineProperty(window, 'matchMedia', {
     dispatchEvent: jest.fn(),
   })),
 })
+
+// Mock localStorage
+const localStorageMock = {
+  getItem: jest.fn(),
+  setItem: jest.fn(),
+  removeItem: jest.fn(),
+  clear: jest.fn(),
+}
+global.localStorage = localStorageMock
+
+// Mock sessionStorage
+const sessionStorageMock = {
+  getItem: jest.fn(),
+  setItem: jest.fn(),
+  removeItem: jest.fn(),
+  clear: jest.fn(),
+}
+global.sessionStorage = sessionStorageMock
+
+// Mock requestAnimationFrame
+global.requestAnimationFrame = jest.fn(cb => setTimeout(cb, 0))
+global.cancelAnimationFrame = jest.fn(id => clearTimeout(id))
+
+// Mock console methods to reduce noise in tests
+global.console = {
+  ...console,
+  log: jest.fn(),
+  debug: jest.fn(),
+  info: jest.fn(),
+  warn: jest.fn(),
+  error: jest.fn(),
+}
